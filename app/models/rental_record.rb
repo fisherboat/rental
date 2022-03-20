@@ -32,19 +32,13 @@ class RentalRecord < ApplicationRecord
     end
   end
 
-  def filling_repay_attributes
-    user_last_record = self.book.rental_records.where(user_id: self.user_id).last
-    if user_last_record.present? && user_last_record.kind.borrow?
-      self.price = user_last_record.price
-    end
-  end
-
   private
     def valid_book_invertory
       self.book.reload
       unless self.book.can_borrow?
         self.errors.add(:book_id, "Book has been borrowed")
       end
+
     end
 
     def valid_user_balance

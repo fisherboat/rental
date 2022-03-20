@@ -6,16 +6,19 @@ class Book < ApplicationRecord
   scope :borrowed_books, -> {where("borrow_times > repay_times")}
 
   def can_borrow?
-    self.borrow_times - self.repay_times < self.stock
+    self.remaining_stock > 0
+  end
+
+  def remaining_stock
+    self.stock - self.borrow_times + self.repay_times
   end
 
   def can_repay?(user_id)
     flag = self.borrow_times > self.repay_times
     return false unless flag
-    last_record = self.rental_records.last
-    if last_record.present? && last_record.kind.borrow? && last_record.user_id == user_id
-      flag = true
-    else
+    borrow_book_times = self.rental_records.borrow_records.where(user_id: user_id).count
+    borrow_repay_times = self.rental_records.repay_records.where(user_id: user_id).count
+    if borrow_book_times <= borrow_repay_times
       flag = false
     end
     return flag

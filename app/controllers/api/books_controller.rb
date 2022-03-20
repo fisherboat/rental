@@ -33,7 +33,7 @@ class Api::BooksController < Api::BaseController
   def repay
     @rental_record = @book.rental_records.new(rental_record_params)
     @rental_record.kind = "repay"
-    @rental_record.filling_repay_attributes
+    @rental_record.price = @rental_record.book.price
     unless @rental_record.valid?
       render json: { errors: formate_response_errors(@rental_record.errors)}, status: 422
       return
@@ -63,7 +63,7 @@ class Api::BooksController < Api::BaseController
       end
       collection = collection.where("created_at <= ?", end_date.end_of_day)
     end
-    render json: {actual_income: collection.sum(:price).to_f}
+    render json: {amount: collection.sum(:price).to_f}
   end
 
   private
