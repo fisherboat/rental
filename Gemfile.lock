@@ -99,12 +99,19 @@ GEM
       msgpack (~> 1.2)
     builder (3.2.4)
     concurrent-ruby (1.1.9)
+    counter_culture (2.9.0)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
     crass (1.0.6)
     debug (1.4.0)
       irb (>= 1.3.6)
       reline (>= 0.2.7)
     digest (3.1.0)
+    enumerize (2.5.0)
+      activesupport (>= 3.2)
     erubi (1.10.0)
+    faker (2.20.0)
+      i18n (>= 1.8.11, < 2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.10.0)
@@ -116,6 +123,18 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     loofah (2.15.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -147,6 +166,8 @@ GEM
     pg (1.3.4)
     puma (5.6.2)
       nio4r (~> 2.0)
+    rabl (0.15.0)
+      activesupport (>= 2.3.14)
     racc (1.6.0)
     rack (2.2.3)
     rack-test (1.1.0)
@@ -186,10 +207,15 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  counter_culture (~> 2.0)
   debug
+  enumerize
+  faker
   jbuilder
+  kaminari
   pg (~> 1.1)
   puma (~> 5.0)
+  rabl
   rails!
   sprockets-rails
   tzinfo-data
