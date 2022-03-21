@@ -12,14 +12,14 @@
 
 ActiveRecord::Schema[7.1].define(version: 2022_03_20_031200) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "btree_gin"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "books", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "borrow_times", default: 0
-    t.integer "repay_times", default: 0
+    t.integer "borrow_times", default: 0, null: false
+    t.integer "stock", default: 0, null: false
+    t.integer "repay_times", default: 0, null: false
     t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
