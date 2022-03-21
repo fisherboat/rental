@@ -1,24 +1,19 @@
-# README
+## 系统设计
+### 技术选型
+1. Web框架用rails
+2. 数据库用postgresql
+3. Json builder用Rabl
+### 重点技术问题
+1. 检索书会用到模糊查找，书库比较大时查询效率会比较低，即使加了索引效果也不太理想，故用Gin替换默认的Btree
+2. 借还书时涉及到修改库存，在高并发的场景下会有数据不一致的问题，故使用`with_lock`锁行的方法解决高并发问题
+3. 关于库存问题，每次借还书系统自动添加一条租赁记录(Rental record), 之后将借还次数放写到book表中来快速判断书的库存
+4. 为了保证接口安全在请求header中添加签名
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### 使用到的表
+* users: 用户信息
+* books: 书籍信息
+* rental_records: 借还记录表
 
-Things you may want to cover:
+## 接口文档
 
-* Ruby version
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
