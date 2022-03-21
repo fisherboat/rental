@@ -18,7 +18,7 @@
 
 API接口基本路径：
 ```
-https://staging.partner.pipihosting.com/api
+https:murmuring-bayou-58304.herokuapp.com/api
 ```
 
 ### 创建用户
