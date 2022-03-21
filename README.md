@@ -16,4 +16,221 @@
 
 ## 接口文档
 
+API接口基本路径：
+```
+https://staging.partner.pipihosting.com/api
+```
+
+### 创建用户
+POST /users
+
+参数
+
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|name|String|用户名|是|
+|email|String|用户邮件|是|
+
+返回:
+
+用户基本信息
+
+例如
+```json
+{
+  "id": 2,
+  "name": "fisherboat",
+  "email": "fisherboat@gmail.com"
+}
+```
+
+### 创建用户
+POST /users/{id}
+
+参数
+
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|id|Ingeter|用户ID|是|
+
+返回:
+
+用户基本所有信息
+
+例如：
+```json
+{
+  "id": 2,
+  "name": "fisherboat",
+  "email": "fisherboat@gmail.com",
+  "balance": 76.0,
+  "books": [
+    {
+      "id": 5,
+      "name": "No Highway",
+      "price": "56.0"
+    }
+  ]
+}
+```
+### 获取书列表
+GET /books
+
+参数：
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|name|String|按名称模糊搜索书|否|
+|page|Integer|分页页码|否|
+
+返回:
+
+书列表和分页信息
+
+例如
+```json
+{
+  "books": [
+    {
+      "id": 2,
+      "name": "Ruby 原理剖析",
+      "borrow_times": 0,
+      "repay_times": 0,
+      "price": 10.0
+    }
+  ],
+  "pageination": {
+    "total_count": 3,
+    "total_pages": 1,
+    "current_page": 1,
+    "next_page": null,
+    "prev_page": null,
+    "is_first_page": true,
+    "is_last_page": true
+  }
+}
+```
+
+### 获取书详细信息
+GET /books/{id}
+
+参数：
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|id|Integer|书ID|是|
+
+返回:
+
+书详细信息
+
+例如
+```json
+{
+  "id": 5,
+  "name": "No Highway",
+  "borrow_times": 5,
+  "repay_times": 4,
+  "stock": 20,
+  "price": 56.0,
+  "remaining_stock": 19
+}
+```
+
+### 获取书实际收益
+GET /books/{id}/actual_income
+
+参数：
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|id|Integer|书ID|是|
+
+返回:
+
+书的实际收益
+
+例如
+```json
+{
+  "actual_income": 224.0
+}
+```
+
+### 借书
+GET /books/{id}/borrow
+
+参数：
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|id|Integer|书ID|是|
+|user_id|Integer|用户ID|是|
+
+返回:
+
+成功和失败的信息
+
+成功例如
+```json
+{
+  "message": "Borrow book success"
+}
+```
+
+### 归还
+GET /books/{id}/borrow
+
+参数：
+|参数名|类型|描述|是否必填|
+|:----:|:----:|:----:|----:|
+|id|Integer|书ID|是|
+|user_id|Integer|用户ID|是|
+
+返回:
+
+成功和失败的信息
+
+成功例如
+```json
+{
+  "message": "Repay book success"
+}
+```
+
+### 成功和失败说明
+#### 成功后有两种放回的数据格式
+1. 放回操作成功信息，示例如下：
+```json
+{
+  "message": "Repay book success"
+}
+```
+2. 放回具体数据，示例如下：
+```json
+{
+  "id": 5,
+  "name": "No Highway",
+  "borrow_times": 5,
+  "repay_times": 4,
+  "stock": 20,
+  "price": 56.0,
+  "remaining_stock": 19
+}
+```
+#### 失败后放回数据数据格式
+1. 直接返回错误信息， 示例如下：
+```json
+{
+  "errors": "Not find record"
+}
+```
+2. 放回错误信息和集体的字段
+```json
+{
+  "errors": {
+    "book_id": "Book cannot be replied"
+  }
+}
+```
+
+
+
+
 
