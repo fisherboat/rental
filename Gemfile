@@ -45,6 +45,8 @@ gem 'kaminari'
 gem 'enumerize'
 # Cache count
 gem 'counter_culture', '~> 2.0'
+# mock data
+gem "faker"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -62,10 +64,10 @@ group :development do
   # gem "spring"
 end
 
+
 group :development, :test do
   gem "rspec-rails"
   gem "factory_bot_rails"
-  gem "faker"
 
 end
 
